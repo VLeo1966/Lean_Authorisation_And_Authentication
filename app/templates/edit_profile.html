@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>Изменить профилья</h1>
-<form method="post" action="{{ url_for('register') }}">
+<form method="post" action="{{ url_for('edit_profile') }}">
         {{ form.hidden_tag() }}
         <div>
             {{ form.username.label }}
