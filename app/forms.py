@@ -4,11 +4,11 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from app.models import User
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=35)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    username = StringField('Имя', validators=[DataRequired(), Length(min=2, max=35)], render_kw={"placeholder": "Введите ваше имя"})
+    email = StringField('Почта', validators=[DataRequired(), Email()], render_kw={"placeholder": "Введите вашу почту"})
+    password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"placeholder": "Введите пароль"})
+    confirm_password = PasswordField('Подтвердить пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Введите пароль"})
+    submit = SubmitField('Регистрация')
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
@@ -19,17 +19,15 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Такая почта уже используется')
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=35)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Имя', validators=[DataRequired(), Length(min=2, max=35)], render_kw={"placeholder": "Введите ваше имя"})
+    email = StringField('Почта', validators=[DataRequired(), Email()], render_kw={"placeholder": "Введите вашу почту"})
+    password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"placeholder": "Введите пароль"})
     remember = BooleanField('Запомни меня')
-    submit = SubmitField('Login')
+    submit = SubmitField('Войти')
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=80)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('New password', validators=[Length(min=8, message="Пароль должен содержать минимум 8 символов")])
-    confirm_password = PasswordField('Подтвердите пароль', validators=[
-        EqualTo('password', message="Пароли должны совпадать")
-    ])
+    username = StringField('Имя', validators=[DataRequired(), Length(min=2, max=80)], render_kw={"placeholder": "Введите ваше имя"})
+    email = StringField('Почта', validators=[DataRequired(), Email()], render_kw={"placeholder": "Введите вашу почту"})
+    password = PasswordField('Новый пароль', validators=[Length(min=8, message="Пароль должен содержать минимум 8 символов")], render_kw={"placeholder": "Введите пароль"})
+    confirm_password = PasswordField('Подтвердите пароль', validators=[EqualTo('password', message="Пароли должны совпадать")], render_kw={"placeholder": "Введите пароль"})
     submit = SubmitField('Сохранить изменения')

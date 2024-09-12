@@ -33,7 +33,6 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-
             return redirect(url_for('home'))
         else:
             flash('Введены неверные данные')
@@ -61,7 +60,7 @@ def edit_profile():
             current_user.set_password(form.password.data)  # Метод для хеширования пароля
         db.session.commit()
         flash('Профиль обновлен!', 'success')
-        return redirect(url_for('profile'))  # Переадресация на страницу профиля
+        return redirect(url_for('edit_profile'))  # Переадресация на страницу профиля
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
