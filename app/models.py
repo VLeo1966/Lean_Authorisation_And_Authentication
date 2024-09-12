@@ -1,7 +1,3 @@
-# Импортируем библиотеки:
-from app import db, login_manager
-from flask_login import UserMixin # Этот класс даёт возможность работать с пользователем
-
 
 from app import db, login_manager
 from flask_login import UserMixin
